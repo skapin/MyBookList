@@ -25,7 +25,8 @@ $str .= '<article>
 
 $str .= form_preped_text("","personne","Personne","Ex : Edward Elric",1,0);  
 
-$str .=form_hidden('id', post2bdd($_POST['id']) );  
+$str .=form_hidden('id', post2bdd($_POST['id']) );
+$str .=form_hidden('action', 'preterLivre' );    
 
 $str .= '<div class="form-group">
     <button id="preterLivre" type="submit" name="preterLivre" class="btn btn-success">Ajouter</button>

@@ -6,6 +6,7 @@ if ( empty($_POST['titre']) && empty($_POST['auteur']) && empty($_POST['id']) &&
     echo 'Echec 19.76.78';
     die();
 }
+Page::createCSRF();
 $str ='<!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -21,7 +22,7 @@ $str .= '<article>
   </blockquote>
   <form   class="form-signin" role="form" action="mes_livres.php" method="post">';
 $str .=form_hidden('id', post2bdd($_POST['id']) );  
-
+$str .=form_hidden('action', 'recupererLivre' );  
 $str .= '<div class="form-group">
     <button id="recupererLivre" type="submit" name="recupererLivre" class="btn btn-success">Récuperer</button>
   </div>

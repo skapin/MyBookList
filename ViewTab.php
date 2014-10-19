@@ -98,13 +98,13 @@ class ViewTab  {
 	{
 			
 		$tab = new Tab("");
-		$tab->setHeader('Titre','Auteur','Date','Commentaire','Actions <small class="text-muted">(Ajouter/Lu/Voulu)</small>');
+		$tab->setHeader('Titre','Auteur','Date','Commentaire','Actions <small class="text-muted">(Ajouter/Lu/Voulu/Emprunt)</small>');
 		if ( empty($livres) )
 			$livres = array(0);
 		
 		for ( $i = 1 ; $i <= $livres[0]; $i++ ) 
 		{	
-			$action = '';
+			$action = '<div class="row">';
 			if ( Page::is_logged() )
 			{
 				if ( empty($livres[$i]['mon_livre_id']) )
@@ -131,6 +131,8 @@ class ViewTab  {
 										post:\'id='.$livres[$i]['id'].'&titre='.$livres[$i]['titre'].'&auteur='.$livres[$i]['auteur'].'\',
 										width:700,height:320,opacity:20,topsplit:3,top:100
 									})"><span class="glyphicon glyphicon-remove"></span></button>'*/
+									
+				/************************* Souhait *****************************/
 				if ( empty($livres[$i]['id_wish']) &&  empty($livres[$i]['mon_livre_id'])  )
 				{					
 					$action .= Bouton::addWish( $livres[$i] );
@@ -138,7 +140,8 @@ class ViewTab  {
 				else
 				{
 					$action .= Bouton::hiddenButton('btn btn-danger col-md-2 col-md-offset-1');
-				}	
+				}
+				$action .= '</div>';
 									
 			}
 			else
@@ -147,23 +150,15 @@ class ViewTab  {
 			}
 			if ( $only_row )
 			{
-				$tab->add_row_css(truncate(bdd2html($livres[$i]['titre']),$GLOBALS['truncate_field_size']) ,
-							truncate(bdd2html($livres[$i]['auteur']),$GLOBALS['truncate_field_size']),
-							truncate(bdd2html($livres[$i]['date_parution']),$GLOBALS['truncate_field_size']),
-							truncate(bdd2html($livres[$i]['commentaire']),$GLOBALS['truncate_field_size']),
-							$action,
-							"hidden"
-							);
+				$tab->setTrClass('hidden');
 			}
-			else
-			{
-				$tab->add_row(truncate(bdd2html($livres[$i]['titre']),$GLOBALS['truncate_field_size']) ,
-							truncate(bdd2html($livres[$i]['auteur']),$GLOBALS['truncate_field_size']),
-							truncate(bdd2html($livres[$i]['date_parution']),$GLOBALS['truncate_field_size']),
-							truncate(bdd2html($livres[$i]['commentaire']),$GLOBALS['truncate_field_size']),
+			$tab->add_row(	Page::getAbbr(bdd2html($livres[$i]['titre']) ,$GLOBALS['truncate_field_size']),
+							Page::getAbbr(bdd2html($livres[$i]['auteur']) ,$GLOBALS['truncate_field_size']),
+							Page::getAbbr(bdd2html($livres[$i]['date_parution']) ,$GLOBALS['truncate_field_size']),
+							Page::getAbbr(bdd2html($livres[$i]['commentaire']) ,$GLOBALS['truncate_field_size']),
 							$action
 							);
-			}
+							 
 			
 		}
 		if ( $only_row )
@@ -251,18 +246,24 @@ class ViewTab  {
 				{					
 					$actions .= Bouton::addWish( $livres[$i] );
 				}
+				/************************* Pret *****************************/
+				if ( empty($livres[$i]['mon_livre_id']) )
+				{
+					$actions .= Bouton::askLivre( $livres[$i] );
+				}
 				
 			}
 							
 			
 			
 			$tab->setTrId(bdd2html($livres[$i]['id_mon_livre']) );
-			$tab->add_row(bdd2html($livres[$i]['titre']) ,
-							bdd2html($livres[$i]['auteur']),
-							bdd2html($livres[$i]['date_achat']),
-							bdd2html($livres[$i]['lieu']),
-							bdd2html($livres[$i]['autre']),
-							 $actions);
+			$tab->add_row(	Page::getAbbr(bdd2html($livres[$i]['titre']) ,$GLOBALS['truncate_field_size']),
+				Page::getAbbr(bdd2html($livres[$i]['auteur']) ,$GLOBALS['truncate_field_size']),
+				Page::getAbbr(bdd2html($livres[$i]['date_parution']) ,$GLOBALS['truncate_field_size']),
+				Page::getAbbr(bdd2html($livres[$i]['date_achat']) ,$GLOBALS['truncate_field_size']),
+				Page::getAbbr(bdd2html($livres[$i]['autre']) ,$GLOBALS['truncate_field_size']),
+				$actions
+				);
 		}
 		if ( $only_row )
 		{

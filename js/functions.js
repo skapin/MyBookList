@@ -1,4 +1,12 @@
 
+function MaxLengthTextarea(objettextarea,maxlength){
+  if (objettextarea.value.length > maxlength) {
+    objettextarea.value = objettextarea.value.substring(0, maxlength);
+    alert('Votre texte ne doit pas dépasser '+maxlength+' caractères!');
+   }
+};
+
+
 $(document).ready(function(){
     $('.combobox').combobox();
 });
@@ -6,7 +14,7 @@ $(document).ready(function(){
 $('#triLivre').on('change', function() 
 {
 	$.ajax({
-		url: '../services/changeOrder.php',
+		url: './services/changeOrder.php',
 		type: "POST",
 		data: { order: this.value, name: 'livre' },
 		success: function(response){
@@ -28,7 +36,7 @@ $( ".filter-letter" ).click(function() {
 		filter_value = '%';
 	}
 	$.ajax({
-		url: '../services/changeOrder.php',
+		url: './services/changeOrder.php',
 		type: "POST",
 		data: { filter: filter_value, name: 'livre' },
 		success: function(response){

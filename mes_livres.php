@@ -33,10 +33,10 @@ else if ( isset($_POST['addlivre']) )
 
 /***************** Preter un livre *******************************/
 
-if ( $page->is_logged() && isset($_POST['preterLivre']) && !empty($_POST['id']) && Page::checkCSRF() )
+if ( $page->is_logged() && !empty($_POST['action']) && $_POST['action']=='preterLivre' && !empty($_POST['id']) && Page::checkCSRF() )
 {
 	
-	$req = "INSERT INTO `MBL_pret` (id_livre_biblio, personne, date_debut, date_fin ) VALUES ( ?,?,?,? )";
+	$req = "INSERT INTO `MBL_pret` (id_mon_livre_biblio, personne, date_debut, date_fin ) VALUES ( ?,?,?,? )";
     $vals = array( post2bdd($_POST['id']), post2bdd($_POST['personne']), date('Y'), 0 );
     
 	if ( Bdd::sql_insert( $req, $vals ) )
@@ -51,22 +51,22 @@ if ( $page->is_logged() && isset($_POST['preterLivre']) && !empty($_POST['id']) 
 }
 else if ( isset($_POST['preterLivre']) )
 {
-	$notification = '<p class="bg-info">Erreur, veuillez remplir tout les champs.</p>';
+	$notification = '<p class="bg-danger">Erreur, veuillez remplir tout les champs.</p>';
 }
 
 /***************** Recuperer un livre *******************************/
 
-if ( $page->is_logged() && isset($_POST['recupererLivre']) && !empty($_POST['id']) && Page::checkCSRF() )
+if ( $page->is_logged() && !empty($_POST['action']) && $_POST['action']=='recupererLivre' && !empty($_POST['id']) && Page::checkCSRF() )
 {
 	$tmp_req = Bdd::sql_get_global_bdd();
-    $tmp_req = $tmp_req->pdo()->prepare( 'DELETE FROM `MBL_pret` WHERE id_livre_biblio=?' );
+    $tmp_req = $tmp_req->pdo()->prepare( 'DELETE FROM `MBL_pret` WHERE id_mon_livre_biblio=?' );
     if ( !($tmp_req->execute( array( post2bdd($_POST['id'])  ) )) && $GLOBALS['debug'] )
 	{
-		$notification .= 'Bdd:: suppression echou&eacute; #19.17.8'.'<br />';
+		$notification .= 'Bdd:: suppression echou&eacute; #19.17.89'.'<br />';
 		if ( $GLOBALS['debug'] )
 		{
-				print_r($tmp_req->errorInfo());
-				echo '<br />';
+				$notification .=  print_r($tmp_req->errorInfo());
+				$notification .=  '<br />';
 		}
 		$notification .= '<p class="bg-danger">Erreur lors de la récupération de votre livre.</p>';
 	}
@@ -75,9 +75,9 @@ if ( $page->is_logged() && isset($_POST['recupererLivre']) && !empty($_POST['id'
 		$notification .= '<p class="bg-success">Livre récupéré !</p>';
 	}
 }
-else if ( isset($_POST['preterLivre']) )
+else if ( isset($_POST['recupererLivre']) )
 {
-	$notification .= '<p class="bg-info">Erreur, veuillez remplir tout les champs.</p>';
+	$notification .= '<p class="bg-danger">Erreur, veuillez remplir tout les champs.</p>';
 }
 
 /*******************************************************************/

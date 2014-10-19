@@ -12,6 +12,17 @@
 	background-repeat: repeat-x;
 	border-color: #9341B8;
 }
+.btn
+{
+	margin-left:3px;
+	margin-right:3px;
+}
+.filter-letter
+{
+	margin-left:0px;
+	margin-right:0px;
+}
+
 .container
 {
 	width:80%;

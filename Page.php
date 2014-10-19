@@ -344,7 +344,14 @@ class Page extends GenericPage {
     </tbody>
 </table>';
     }	
-	
+
+	static public function getAbbr( $value, $len )
+	{
+		if ( strlen($value) > $len )
+			return '<abbr title="'.$value.'"> '.truncate( $value, $len).'</abbr>';
+		else
+			return $value;
+	}
 }
 
 ?>

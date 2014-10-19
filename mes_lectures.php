@@ -54,11 +54,11 @@ if ( $page->is_logged() && isset($_POST['addnote']) && !empty($_POST['note']) &&
 		$vals = array( post2bdd($_POST['id']), post2bdd($_SESSION['theme_id'][$i]), $note  );	
 		if ( Bdd::sql_insert( $req, $vals ) )
 		{
-			$notification .=  '<p class="bg-success">Livre ajouté à votre bibliotèque.</p>';
+			$notification .=  '<p class="bg-success">Note ajoutée</p>';
 		}
 		else
 		{
-			$notification .=  '<p class="bg-danger">Erreur à l\'ajout de votre livre dans la bibliotèque.</p>';
+			$notification .=  '<p class="bg-danger">Erreur à l\'ajout de votre note.</p>';
 		}
 
 		$i++;

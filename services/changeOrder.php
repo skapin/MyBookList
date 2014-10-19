@@ -13,7 +13,7 @@ if ( !empty($_POST['order']) )
 	$order=$orders[$key];
 	
 	$_SESSION['order_livre'] = $order;	
-	echo '';
+	echo 'k';
 }
 if ( !empty($_POST['filter'])  ) 
 {

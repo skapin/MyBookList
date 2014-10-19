@@ -21,7 +21,7 @@ $str ='<!DOCTYPE html>
 <article>
   <h2 class="page-header">Ajouter ce livre à la bibliotèque commune</h2>  
   <blockquote class="blockquote-reverse">'.bdd2text($_POST['titre']).'
-  <footer>'.bdd2text($_POST['auteur']).'</footer>
+  <footer>'.bdd2text($_POST['auteur']).'  ('.bdd2text($_POST['date']).')</footer>
   </blockquote>';
 
 /**********************************************************************/
@@ -76,7 +76,7 @@ else
 	$str .= '
 			<form  class="form-inline" role="form"  action="process_add_biblio.php?&titre='.$_POST['titre']
 							.'&auteur='.$_POST['auteur']
-							.'&date='.$_POST['date_parution']
+							.'&date='.$_POST['date']
 							.'&commentaire='.$_POST['commentaire'].'" method="post" >
 				<button id="createLivre" name="createLivre" class="btn btn-success col-md-4 col-md-offset-8"> Ajouter </button>
 			</form>';

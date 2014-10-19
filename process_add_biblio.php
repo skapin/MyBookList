@@ -26,7 +26,7 @@ if (  Page::is_logged() && !empty($_GET['titre']) && !empty($_GET['auteur']) && 
 else
 {
     echo 'Echec 19.76.754';
-    header('Location: liste_livres.php?notification=1');
+    header('Location: liste_livres.php?notification=2');
 	die();
 	exit();
 }

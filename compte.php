@@ -75,7 +75,7 @@ $str .= '		<!-- Button -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="modifier"></label>
 					<div class="col-md-4">
-						<button id="modifier" name="modifier" class="btn btn-warning">Modifier</button>
+						
 					</div>
 				</div>
 			</fieldset>
@@ -83,6 +83,7 @@ $str .= '		<!-- Button -->
 	</div>
 </div>
 ';
+//<button id="modifier" name="modifier" class="btn btn-warning">Modifier</button>
 
 echo $str;
 $page->html_footer();

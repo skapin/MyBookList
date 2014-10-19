@@ -18,7 +18,7 @@ class Bouton  {
 		
 		 return '<button id="ajouterlecture" 
 				name="ajouterlecture" 
-				class="btn btn-info col-md-2 col-md-offset-1" 
+				class="btn btn-info col-md-2" 
 				onclick="TINY.box.show(
 				{	url:\'popupadd_lecture.php\',
 					post:\'id='.$livre['id'].'&titre='.$livre['titre'].'&auteur='.$livre['auteur'].'\',
@@ -44,12 +44,25 @@ class Bouton  {
 	{
 		return '<button id="vouluLivre" 
 									name="vouluLivre" 
-									class="btn btn-wish col-md-2 col-md-offset-1" 
+									class="btn btn-danger col-md-2" 
 									onclick="TINY.box.show(
 									{	url:\'popupadd_wish.php\',
 										post:\'id='.$livre['id'].'&titre='.$livre['titre'].'&auteur='.$livre['auteur'].'\',
 										width:700,height:520,opacity:20,topsplit:3,top:100
-									})"><span class="glyphicon glyphicon-inbox"></span></button>' ;
+									})"><span class="glyphicon glyphicon-heart"></span></button>' ;
+									
+	}
+	
+	static public function askLivre( $livre )
+	{
+		return '<button id="askLivre" 
+									name="askLivre" 
+									class="btn btn-wish col-md-2" 
+									onclick="TINY.box.show(
+									{	url:\'popupask_livre.php\',
+										post:\'id='.$livre['id'].'&titre='.$livre['titre'].'&auteur='.$livre['auteur'].'\',
+										width:700,height:520,opacity:20,topsplit:3,top:100
+									})"><span class="glyphicon glyphicon-transfer"></span></button>' ;
 									
 	}
 	
