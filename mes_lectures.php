@@ -3,12 +3,6 @@ require("include.php");
 
 $page = new Page("MBL");
 
-if ( ! $page->is_logged() )
-{
-	header('Location: index');
-}
-
-
 $notification ='';
 /*****************Ajouter une lecture*******************************/
 
@@ -99,6 +93,19 @@ else if ( ! empty($_GET['pseudo']) )
 		
 	}
 }
+else
+{
+	header('Location: index');
+}
+
+if ( $page->is_logged() && empty($_GET['pseudo']))
+{
+	  echo '<h2 class="page-header">Importer, Exporter, Partager ! </h2>
+	  <p>
+		Partager votre bibliotèque ! <a href="http://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'].'?pseudo='.$page->get_pseudo().'" >http://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'].'?pseudo='.$page->get_pseudo().'</a>
+	  <br /><br /></p>';
+}
+
 
 
 echo '

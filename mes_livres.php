@@ -6,6 +6,32 @@ $page->addJS('js/jquery.autocomplete.js');
 $notification='';
 
 
+
+/*****************Demander un livre *******************************/
+
+if ( $page->is_logged() && isset($_POST['askLivre']) && !empty($_POST['id'])   && Page::checkCSRF() )
+{
+	
+	$req = "INSERT INTO `MBL_com` (id_from, id_to, content, date ) VALUES ( ?,?,?,? )";
+    $vals = array( post2bdd($_SESSION['id_user']), post2bdd($_POST['id']), post2bdd($_POST['autre']), time() );
+    
+    
+	if ( Bdd::sql_insert( $req, $vals ) )
+	{
+		$notification .= '<p class="bg-success">Mesage envoyé.</p>';
+	}
+	else
+	{
+		$notification .= '<p class="bg-danger">Erreur à l\'envoi de votre méssage.</p>';
+	}
+
+}
+else if ( isset($_POST['askLivre']) )
+{
+	$notification .= '<p class="bg-info">Erreur, veuillez remplir tout les champs.</p>';
+}
+
+
 /*****************Ajouter un livre a la biblio*******************************/
 
 if ( $page->is_logged() && isset($_POST['addlivre']) && !empty($_POST['id']) && isset($_POST['date_achat']) && isset($_POST['etat']) && isset($_POST['format']) && isset($_POST['autre'])   && Page::checkCSRF() )
@@ -118,7 +144,7 @@ if ( $page->is_logged() && empty($_GET['pseudo']))
   {
 	  echo '<h2 class="page-header">Importer, Exporter, Partager ! </h2>
 	  <p>
-		Partager votre bibliotèque ! <a href="http://www.mybooklist.fr/mes_livres.php?pseudo='.$page->get_pseudo().'" >http://www.mybooklist.fr/mes_livres.php?pseudo='.$page->get_pseudo().'</a>
+		Partager votre bibliotèque ! <a href="http://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'].'?pseudo='.$page->get_pseudo().'" >http://'.$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'].'?pseudo='.$page->get_pseudo().'</a>
 	  </p>
 	  <p>
   <a href="download.php?action=export&format=csv"><button id="exportCVS" name="exportCVS" class="btn btn-success col-md-2 col-md-offset-1" 
